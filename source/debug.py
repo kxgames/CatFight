@@ -20,8 +20,8 @@ class DebuggingProcess(multiprocessing.Process):
 if __name__ == "__main__":
 
     threads = [
-            DebuggingProcess("Client", main.UserLoop()),
-            DebuggingProcess("Server", main.ServerLoop()) ]
+            DebuggingProcess("Server", main.ServerLoop()),
+            DebuggingProcess("Client", main.UserLoop()) ]
 
     try:
         for thread in threads:
