@@ -15,7 +15,10 @@ class DebuggingProcess(multiprocessing.Process):
         return self.is_alive()
 
     def run(self):
-        self.loop.play()
+        try: self.loop.play()
+        except KeyboardInterrupt:
+            pass
+
 
 if __name__ == "__main__":
 
