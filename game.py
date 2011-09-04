@@ -11,16 +11,13 @@ class StartGame(Command):
         self.size = size
         self.players = players
 
-class CreateDot(Command):
+class MoveDivision(Command):
     pass
 
-class MoveDot(Command):
+class EngageDivision(Command):
     pass
 
-class DestroyDot(Command):
-    pass
-
-class DestroyPlayer(Command):
+class DestroyDivision(Command):
     pass
 
 class GameOver(Command):
@@ -56,7 +53,7 @@ class Game:
         players = command.players
 
         self.world.create_map(size)
-        self.world.create_tribes(players)
+        self.world.create_armies(players)
 
     def game_over(self, command):
         self.world.winner = command.winner
@@ -67,9 +64,9 @@ class Game:
 class Triggers(Task):
 
     # Constructor {{{1
-    def __init__(self, engine, tribes):
+    def __init__(self, engine, armies):
         Task.__init__(self, engine)
-        self.tribes = tribes
+        self.armies = armies
 
         self.elapsed = 0
         self.countdown = [1, 2, 3, 4, 5]
@@ -81,7 +78,7 @@ class Triggers(Task):
         self.world = self.engine.get_world()
         self.forum = self.engine.get_forum()
 
-        self.start_game(self.tribes)
+        self.start_game(self.armies)
 
     def update(self, time):
         self.elapsed += time
@@ -114,8 +111,8 @@ class Triggers(Task):
         self.forum.publish(command)
 
     def game_over(self):
-        tribes = self.world.get_tribes()
-        winner = random.choice(tribes)
+        armies = self.world.get_armies()
+        winner = random.choice(armies)
 
         command = GameOver(winner.identity)
         self.forum.publish(command)

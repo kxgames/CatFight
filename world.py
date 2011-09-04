@@ -5,7 +5,7 @@ class World:
         self.me = 0
         self.winner = 0
 
-        self.tribes = {}
+        self.armies = {}
         self.dots = {}
         self.map = None
 
@@ -20,11 +20,11 @@ class World:
         if not self.winner: return False
         return self.winner == self.me
 
-    def get_tribe(self, identity):
-        return self.tribes[identity]
+    def get_army(self, identity):
+        return self.armies[identity]
 
-    def get_tribes(self):
-        return self.tribes.values()
+    def get_armies(self):
+        return self.armies.values()
 
     def get_map(self):
         return self.map
@@ -38,23 +38,28 @@ class World:
     def create_map(self, size):
         self.map = Map(*size)
 
-    def create_tribes(self, players):
+    def create_armies(self, players):
         for identity in players:
             name, position = players[identity]
 
-            tribe = Tribe(identity, name, position)
-            self.tribes[identity] = tribe
+            army = Army(identity, name, position)
+            self.armies[identity] = army
+
+            # Create divisions and supply lines.
 
     # }}}1
 
-class Tribe:
+class Army:
 
     def __init__(self, identity, name, position):
         self.identity = identity
         self.name = name
         self.position = position
 
-class Dot:
+class Division:
+    pass
+
+class SupplyLine:
     pass
 
 class Map:
